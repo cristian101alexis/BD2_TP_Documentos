@@ -1,0 +1,20 @@
+delimiter $$
+CREATE PROCEDURE RendicionDeHoras(IN horas INT , IN proyecto INT , IN legajo INT, IN fecha datetime )
+BEGIN 
+INSERT INTO Rendicion(horas_rendidas,id_proyecto,legajo,fecha)
+VALUES (horas, proyecto,legajo,fecha);
+END 
+$$
+
+
+delimiter $$
+CREATE PROCEDURE CalcularLiquidacionMensual(IN id_proyecto INT , IN id_cliente INT , IN mes INT)
+ BEGIN 
+ DECLARE horas_totales INT DEFAULT 0;
+ DECLARE valor_hora INT DEFAULT  0;
+ SET valor_hora := 750;
+	SELECT  SUM(horas_rendidas) FROM rendicion WHERE MONTH(fecha)=mes INTO horas_totales;
+	 INSERT INTO Liquidacion(ID_Proyecto, ID_Cliente,Monto,fecha_liq)
+	VALUES (id_proyecto,id_cliente,valor_hora * horas_totales, NOW()); 
+ END 
+ $$
