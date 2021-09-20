@@ -1,0 +1,105 @@
+CREATE  DATABASE rrhh;
+USE rrhh;
+
+CREATE  TABLE Participante(
+legajo INTEGER  not NULL  PRIMARY  KEY,
+nombre VARCHAR(30),
+apellido VARCHAR(30),
+direccion VARCHAR(100),
+telefono CHAR(8),
+ID_Rol INT
+);
+
+create table Proyecto(
+ID_proyecto int not null AUTO_INCREMENT  primary key,
+descripcion varchar(200)
+);
+
+create table Participante_Proyecto (
+id INT AUTO_INCREMENT PRIMARY KEY,
+ID_Proyecto INT,
+legajo INT,
+descripcion varchar(200)
+);
+
+create table Asignacion_Proyecto(
+id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+cantidad_horas INTEGER,
+legajo INT,
+ID_Proyecto INT 
+);
+
+create table Codigo_asignacion_horas(
+ID_horas int not null primary key
+);
+
+create table Roles_Proyecto(
+ID_Rol int not null  primary key,
+Descripcion varchar(200));
+
+create table Rendicion(
+id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+horas_rendidas int not null,
+Codigo_asignacion_horas int,
+ID_Proyecto int,
+legajo INT, fecha DATETIME 
+);
+
+create table Clientes(
+ID_cliente int not null primary key,
+Nombre varchar(20),
+Razon_social varchar(30),
+Direccion varchar(100),
+telefono CHAR(8)  
+);
+
+create table Centro_Costo(
+ID_CC int not null primary key,
+Descripcion varchar(100)
+);
+
+create table Centro_facturacion(
+ID_CF int not null primary key,
+Descripcion varchar(100)
+);
+
+create table Liquidacion(
+ID_liquidacion int not null AUTO_INCREMENT PRIMARY KEY,
+ID_Proyecto INT,
+ID_Cliente INT,
+Monto DOUBLE,
+fecha_liq datetime
+);
+
+
+alter table Participante_Proyecto add constraint
+   foreign key (ID_Proyecto) references Proyecto(ID_Proyecto);
+   
+alter table Participante_Proyecto add constraint   
+   foreign key (legajo) references Participante(legajo);
+
+   
+alter table Asignacion_Proyecto add constraint
+   foreign key (ID_Proyecto) references Proyecto(ID_Proyecto);
+   
+alter table Asignacion_Proyecto add constraint   
+   foreign key (legajo) references Participante(legajo);
+   
+alter table Participante add constraint   
+   foreign key (ID_Rol) references Roles_Proyecto(ID_Rol);
+   
+alter table Liquidacion add constraint   
+   foreign key (ID_Proyecto) references Proyecto(ID_Proyecto);
+   
+alter table Liquidacion add constraint   
+   foreign key (ID_Cliente) references Clientes(ID_Cliente);
+
+alter table Rendicion add constraint   
+   foreign key (ID_Proyecto) references Proyecto(ID_Proyecto);
+   
+alter table Rendicion add constraint   
+   foreign key (Legajo) references Participante(Legajo);
+
+
+COMMIT;
+
