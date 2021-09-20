@@ -1,2 +1,13 @@
 alter table Rendicion add constraint   
    foreign key (Codigo_asignacion_horas) references Codigo_asignacion_horas(ID_horas);
+
+delimiter $$
+CREATE PROCEDURE RendicionDeHorasSemanal (IN id_proyecto INT,IN legajo INT, IN  dia1 INT, IN  dia2 INT, IN dia3 INT, IN  dia4 INT, IN  dia5 INT,IN  fecha DATETIME)
+ BEGIN	
+	DECLARE horas_semanales INT;
+	SET horas_semanales= dia1 + dia2 + dia3 + dia4 + dia5;
+   INSERT INTO Rendicion(horas_rendidas,id_proyecto,legajo,fecha) VALUES(horas_semanales, id_proyecto,legajo,fecha);
+ END;
+$$
+
+CALL RendicionDeHorasSemanal(1,36778,10,10,10,10,10,'2021-04-15');
