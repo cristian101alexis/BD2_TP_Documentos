@@ -1,0 +1,71 @@
+INSERT INTO Roles_Proyecto (ID_Rol,Descripcion)
+VALUES (12,'Project Manager'),(25,'Desarrollador'), (45,'Tester'),(47, 'Administrador'),(77,' DevOps');
+
+   
+insert into Participante(legajo,nombre, apellido, direccion, telefono,ID_Rol) VALUES(36778,'Cristian','Castro','Falsa 123',0,12);
+insert into Participante(legajo,nombre, apellido, direccion, telefono,ID_Rol) VALUES(11236,'Antonio','Castro','Gandara 3114',45455987,25);
+insert into Participante(legajo,nombre, apellido, direccion, telefono,ID_Rol) VALUES(4556,'Cecilia','Vilvhez','Condor 3343',56844931,45);
+insert into Participante(legajo,nombre, apellido, direccion, telefono,ID_Rol) VALUES(4845,'Roberto','Galan','Piedras 4577',48579632,47);
+insert into Participante(legajo,nombre, apellido, direccion, telefono,ID_Rol) VALUES(464888,'Cristian','Castro','Pampa 2487',45245650,77);
+insert into Participante(legajo,nombre, apellido, direccion, telefono,ID_Rol) VALUES(55,'Cristian','Castro','Cadiz 1123',48016161,25);
+
+
+SELECT * FROM participante;
+
+insert into Proyecto(descripcion) values ('Flecha Rota');
+insert into Proyecto(descripcion) values ('Rey Carmesi');
+insert into Proyecto(descripcion) values ('Preguntados');
+insert into Proyecto(descripcion) values ('Makro');
+insert into Proyecto(descripcion) values ('OsDe');
+insert into Proyecto(descripcion) values ('Torneos');
+
+SELECT * FROM Proyecto;
+
+INSERT INTO Participante_Proyecto(ID_Proyecto, legajo) VALUES (1,36778);
+INSERT INTO Participante_Proyecto(ID_Proyecto, legajo) VALUES (2,11236);
+INSERT INTO Participante_Proyecto(ID_Proyecto, legajo) VALUES (3,4556);
+INSERT INTO Participante_Proyecto(ID_Proyecto, legajo) VALUES (4,4845);
+INSERT INTO Participante_Proyecto(ID_Proyecto, legajo) VALUES (5,464888);
+INSERT INTO Participante_Proyecto(ID_Proyecto, legajo) VALUES (6,55);
+
+
+SELECT * FROM CLIENTES;
+
+INSERT INTO Asignacion_Proyecto(cantidad_horas,ID_Proyecto,legajo) 
+VALUES (100,1,36778),(120,2,11236),(115,3,4556),(100,4,4845),(105,5,464888),(50,6,55);
+
+INSERT INTO  Clientes (ID_cliente,Nombre,Razon_social,Direccion,telefono)  
+VALUES (400,'Globant','Jose Globant', 'Richieri 202', '555555'),(401,'Mercadolibre','Galperini s.a.', 'Plaza 102', '575555'),
+ 		 (402,'BAdesdeADENTRO','GCBA', 'caseros 5052', '557755'),(403,'Grido helados','GRIDO S.A.', 'ALVERDI 1002', '175555');
+ 
+INSERT INTO Centro_Costo(ID_CC,Descripcion)
+VALUES (105,'Buenos Aires'),(100,'La Plata'),(115,'C.A.B.A.');
+
+INSERT INTO Centro_facturacion(ID_CF ,Descripcion)
+VALUES (01,'AMENABAR'),(07,'BELGRANO'),(11,'RIO DE LA PLATA');
+
+
+
+CALL RendicionDeHoras(8,1,36778,'2021-01-06');
+CALL RendicionDeHoras(12,2,11236,'2021-01-06');
+CALL RendicionDeHoras(11,3,4556,'2021-01-06');
+CALL RendicionDeHoras(10,4,4845,'2021-01-06');
+CALL RendicionDeHoras(10,5,464888,'2021-01-06');
+CALL RendicionDeHoras(5,6,55,'2021-01-07');
+CALL RendicionDeHoras(11,3,4556,'2021-01-07');
+CALL RendicionDeHoras(10,4,4845,'2021-01-07');
+
+SELECT * FROM rendicion;
+
+
+
+
+
+CALL CalcularLiquidacionMensual(1 ,400 , 1); 
+CALL CalcularLiquidacionMensual(2 ,401 , 1);
+CALL CalcularLiquidacionMensual(3 ,402 , 1); 
+CALL CalcularLiquidacionMensual(4 ,403 , 1);
+
+SELECT * FROM auditoria_liquidacion;
+
+SELECT * FROM liquidacion;
