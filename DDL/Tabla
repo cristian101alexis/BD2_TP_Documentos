@@ -71,6 +71,14 @@ Monto DOUBLE,
 fecha_liq datetime
 );
 
+CREATE TABLE auditoria_liquidacion (
+ID_auditoria_liquidacion int not null AUTO_INCREMENT PRIMARY KEY,
+ID_liquidacion INT,
+ID_Proyecto INT,
+ID_Cliente INT,
+Monto DOUBLE,
+fecha_liq datetime
+);
 
 alter table Participante_Proyecto add constraint
    foreign key (ID_Proyecto) references Proyecto(ID_Proyecto);
