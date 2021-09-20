@@ -1,0 +1,2 @@
+alter table Rendicion add constraint   
+   foreign key (Codigo_asignacion_horas) references Codigo_asignacion_horas(ID_horas);
