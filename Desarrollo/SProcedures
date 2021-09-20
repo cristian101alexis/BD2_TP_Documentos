@@ -18,3 +18,13 @@ CREATE PROCEDURE CalcularLiquidacionMensual(IN id_proyecto INT , IN id_cliente I
 	VALUES (id_proyecto,id_cliente,valor_hora * horas_totales, NOW()); 
  END 
  $$
+
+delimiter $$
+CREATE TRIGGER liquidacion_triggers
+AFTER  INSERT ON liquidacion
+FOR EACH ROW 
+BEGIN
+INSERT INTO auditoria_liquidacion (ID_liquidacion, ID_Proyecto, ID_Cliente,Monto,fecha_liq)
+VALUES (NEW.id_liquidacion, NEW.ID_Proyecto, NEW.ID_Cliente, NEW.Monto, NEW.fecha_liq);
+END 
+$$
