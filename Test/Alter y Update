@@ -1,0 +1,37 @@
+ALTER TABLE clientes 
+ADD COLUMN centro_de_costos INT ;
+
+ALTER TABLE clientes 
+ADD COLUMN centro_de_facturacion INT ;
+
+UPDATE clientes 
+ SET centro_de_costos = 105
+ WHERE ID_cliente = 400;
+ 
+ UPDATE clientes 
+ SET centro_de_facturacion = 01
+ WHERE ID_cliente = 400;
+ 
+ UPDATE clientes 
+ SET centro_de_costos = 100
+ WHERE ID_cliente = 401;
+ 
+ UPDATE clientes 
+ SET centro_de_facturacion = 07
+ WHERE ID_cliente = 401;
+ 
+ UPDATE clientes 
+ SET centro_de_costos = 115
+ WHERE ID_cliente = 402;
+ 
+ UPDATE clientes 
+ SET centro_de_facturacion = 11
+ WHERE ID_cliente = 402;
+ 
+ UPDATE clientes 
+ SET centro_de_costos = 115
+ WHERE ID_cliente = 403;
+ 
+ UPDATE clientes 
+ SET centro_de_facturacion = 11
+ WHERE ID_cliente = 403;
