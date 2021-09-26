@@ -1,0 +1,34 @@
+delimiter $$
+CREATE PROCEDURE CalcularLiquidacionMensual(IN id_proyecto INT , IN id_cliente INT , IN mes INT)
+ BEGIN 
+ DECLARE horas_totales INT DEFAULT 0;
+ DECLARE valor_hora INT DEFAULT  0;
+ SET valor_hora := 750;
+	SELECT  SUM(horas_rendidas) FROM rendicion r WHERE MONTH(r.fecha)=mes AND  r.ID_Proyecto = id_proyecto INTO horas_totales;
+	 INSERT INTO Liquidacion(ID_Proyecto, ID_Cliente,Monto,fecha_liq)
+	  VALUES (id_proyecto,id_cliente,valor_hora * horas_totales, NOW()); 
+ END 
+ $$
+ 
+ CALL CalcularLiquidacionMensual(1 ,400 , 1); 
+CALL CalcularLiquidacionMensual(1 ,400 , 5); 
+CALL CalcularLiquidacionMensual(2 ,401 , 1);
+CALL CalcularLiquidacionMensual(3 ,402 , 1); 
+CALL CalcularLiquidacionMensual(4 ,403 , 1);
+
+delimiter $$
+CREATE PROCEDURE RendicionDeHorasSemanal (IN id_proyecto INT,IN legajo INT, IN  horas_semanales INT,IN  fecha DATETIME)
+ BEGIN	
+	DECLARE horas_diarias INT;
+	SET horas_diarias= horas_semanales/5;
+   INSERT INTO Rendicion(horas_rendidas,id_proyecto,legajo,fecha) 
+   VALUES(horas_diarias, id_proyecto,legajo,fecha),
+			(horas_diarias, id_proyecto,legajo,DATE_SUB(fecha, INTERVAL 1 DAY)),
+   		(horas_diarias, id_proyecto,legajo,DATE_SUB(fecha, INTERVAL 2 DAY)),
+ 			(horas_diarias, id_proyecto,legajo,DATE_SUB(fecha, INTERVAL 3 DAY)),
+ 			(horas_diarias, id_proyecto,legajo,DATE_SUB(fecha, INTERVAL 4 DAY));		 
+ END;
+$$
+
+CALL RendicionDeHorasSemanal(1,36778,50,'2021-05-15');
+
