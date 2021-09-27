@@ -1,0 +1,36 @@
+
+
+DROP PROCEDURE Reajuste_De_Horas
+//se modifico el Store Procedure
+
+
+
+delimiter $$
+CREATE PROCEDURE Reajuste_De_Horas(IN horas INT , IN proyecto INT , IN legajo INT, IN id_cliente INT,  IN fecha datetime )
+BEGIN 
+DECLARE valor_hora INT DEFAULT  0;
+SET valor_hora := 750;
+INSERT INTO Rendicion(horas_rendidas,id_proyecto,legajo, fecha)
+VALUES (horas, proyecto,legajo,fecha);
+INSERT  INTO  liquidacion (ID_Proyecto, ID_Cliente, Monto, fecha_liq, mes_liquidado)
+VALUES (proyecto, id_cliente,valor_hora * horas, NOW(),MONTH(fecha));
+END 
+$$
+
+CALL Reajuste_De_Horas(8,1,36778,400,'2021-01-08');
+
+delimiter $$
+CREATE PROCEDURE RendicionDeHorasSemanal (IN id_proyecto INT,IN legajo INT, IN  horas_semanales INT,IN  fecha DATETIME)
+ BEGIN	
+	DECLARE horas_diarias INT;
+	SET horas_diarias= horas_semanales/5;
+   INSERT INTO Rendicion(horas_rendidas,id_proyecto,legajo,fecha) 
+   VALUES(horas_diarias, id_proyecto,legajo,fecha),
+			(horas_diarias, id_proyecto,legajo,DATE_SUB(fecha, INTERVAL 1 DAY)),
+   		(horas_diarias, id_proyecto,legajo,DATE_SUB(fecha, INTERVAL 2 DAY)),
+ 			(horas_diarias, id_proyecto,legajo,DATE_SUB(fecha, INTERVAL 3 DAY)),
+ 			(horas_diarias, id_proyecto,legajo,DATE_SUB(fecha, INTERVAL 4 DAY));		 
+ END;
+$$
+
+CALL RendicionDeHorasSemanal(1,36778,50,'2021-05-15');
